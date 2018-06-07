@@ -1,0 +1,719 @@
+﻿@model IEnumerable<Inventory.Models.Stock_level_history>
+
+@{
+    ViewData["Title"] = "Index";
+    int p = (int)ViewData["p"];
+    int TopNavPageListSize = 3;
+    string PagingListNavAddress = "./Stocklevelhistory";
+}
+
+<!-- Top Nav -->
+<table width="100%">
+    <tr>
+        <td>
+            @*Submission form*@
+            <form asp-controller="Stocklevelhistory" asp-action="Index" method="get">
+                <p>
+                    <input type="text" name="search" value=@ViewData["Search"] placeholder="Search Product Code / Desc." class="search-box" /><input type="submit" value="Search" class="search-box-btn" />
+                </p>
+            </form>
+        </td>
+        <td>
+            @*This list out the total records*@
+            <div style="width:100%; text-align:right; font-style:italic; font-size:12px; padding-bottom:10px; color:lightslategrey">
+                Total Record(s): @ViewData["TotalRows"]
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="text-align:right">
+            @if ((int)ViewData["TotalPages"] > 1)
+            //if total page is bigger than 1
+            {
+                <div style="text-align:right; width:100%">
+                    @* Beginning of paging *@
+                    <nav>
+                        <ul class="pagination pagination-sm">
+                            @{
+                                //This part display the left arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                                    <li><a href="@PagingListNavAddress?p=1&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                }
+                                else
+                                {   // else it will not include search
+                                    <li><a href="@PagingListNavAddress?p=1" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                }
+
+                                // Beginning of paging numbers
+                                // The following section has broken into three pieces. First, it checks to see if the current page is less than the limited top navigation page list size.
+                                // Second, it checks to see if the current page plus the limited top navigation page list size is greater than the total page, if so it will print only
+                                //         up to the last page
+                                // Third, it print out the regular condition
+                                if (p < TopNavPageListSize)     // if page number is less than the limited top navigation page list size
+                                {
+                                    for (int a = 1; a < 6 && a <= (int)ViewData["TotalPages"]; a++) // a always start at 1 and for a < total pages
+                                    {
+                                        if (@a == p)
+                                        {   // if a is the current page then no link is printed
+                                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {   // For page has search criteria
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else // else
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (p + TopNavPageListSize > (int)@ViewData["TotalPages"])
+                                {
+                                    for (int a = (int)ViewData["TotalPages"] - 4; a <= (int)ViewData["TotalPages"]; a++)
+                                    {
+                                        if (@a == p)
+                                        {
+                                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int a = p - 2; a < p + 3; a++)
+                                    {
+                                        if (@a == p)
+                                        {
+                                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //This part display the right arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;</span></a></li>
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                }
+                                else
+                                {   // else it will not include search
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]"><span aria-hidden="true">&raquo;</span></a></li>
+                                    <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                }
+                            }
+
+                            @Html.DropDownList("PagesList", (IEnumerable<SelectListItem>)ViewData["PagesList"], new { @class = "paging-dropdown" })
+
+                        </ul>
+                    </nav>
+                </div>
+                                }
+        </td>
+    </tr>
+</table>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.product_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.product_desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a00_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a00_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a00_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a00_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a10_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a10_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a10_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a10_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a11_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a11_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a11_ouq)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.a50_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a50_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a50_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a50_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a99_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a99_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.a99_ouq)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.g10_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g10_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g10_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g10_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g50_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g50_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g50_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g50_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g90_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g90_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g90_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g90_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g99_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g99_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g99_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.g99_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h00_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h00_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h00_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h00_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h01_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h01_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h01_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h01_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h10_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h10_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h10_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.h10_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.m10_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.m10_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.m10_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.m10_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t01_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t01_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t01_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t01_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t02_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t02_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t02_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t02_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u10_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u10_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u10_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u10_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u50_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u50_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u50_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u50_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u99_ohq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u99_inq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u99_ouq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.u99_obqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th nowrap>
+            @Html.DisplayNameFor(model => model.snapshot_date)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="cursor: pointer" onclick="window.open('./Stocklevelhistory/Details/' + @item.id, '_self')">
+            <td nowrap>
+                @Html.DisplayFor(modelItem => item.product_code)
+            </td>
+            <td nowrap>
+                @Html.DisplayFor(modelItem => item.product_desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a00_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a00_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a00_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a00_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a10_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a10_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a10_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a10_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a11_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a11_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a11_ouq)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.a50_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a50_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a50_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a50_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a99_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a99_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.a99_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g10_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g10_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g10_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g10_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g50_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g50_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g50_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g50_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g90_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g90_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g90_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g90_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g99_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g99_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g99_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.g99_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h00_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h00_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h00_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h00_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h01_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h01_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h01_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h01_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h10_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h10_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h10_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.h10_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.m10_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.m10_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.m10_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.m10_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t01_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t01_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t01_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t01_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t02_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t02_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t02_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t02_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u10_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u10_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u10_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u10_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u50_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u50_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u50_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u50_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u99_ohq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u99_inq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u99_ouq)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u99_obqty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.snapshot_date)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if ((int)ViewData["TotalPages"] > 1)   //if total page is bigger than 1
+{
+    <div style="text-align:center; width:100%">
+        <nav>
+            <ul class="pagination">
+                @{
+//This part display the left arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                    @if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                    {
+                        <li><a href="@PagingListNavAddress?p=1&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                        <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    }
+                    else
+                    {   // else it will not include search
+                        <li><a href="@PagingListNavAddress?p=1" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                        <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    }
+
+                    // Beginning of paging numbers
+                    // The following section has broken into three pieces. First, it checks to see if the current page is less than the limited top navigation page list size(7).
+                    // Second, it checks to see if the current page plus the limited top navigation page list size is greater than the total page, if so it will print only
+                    //         up to the last page
+                    // Third, it print out the regular condition
+                    if (p < 7)
+                    {
+                        for (int a = 1; a < 12 && a <= (int)ViewData["TotalPages"]; a++)    // if page number is less than the limited top navigation page list size
+                        {
+                            if (@a == p)
+                            {   // if a is the current page then no link is printed
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {   // For page has search criteria
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else  // else
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+                    else if (p + 5 > (int)@ViewData["TotalPages"])
+                    {
+                        for (int a = (int)ViewData["TotalPages"] - 10; a <= (int)ViewData["TotalPages"]; a++)
+                        {
+                            if (@a == p)
+                            {
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int a = p - 5; a < p + 6; a++)
+                        {
+                            if (@a == p)
+                            {
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+
+                    //This part display the right arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                    if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                    {
+                        <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;</span></a></li>
+                        <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                    }
+                    else
+                    {   // else it will not include search
+                        <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]"><span aria-hidden="true">&raquo;</span></a></li>
+                        <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+                    }
+
+@section Scripts {
+    <script>
+    $(function(){
+        // bind change event to select
+        $('#PagesList').on('change', function () {
+            var url = $(this).val(); // get selected value
+            if (url)
+            { // require a URL
+                window.location = url; // redirect
+            }
+            return false;
+            });
+        });
+    </script>
+}

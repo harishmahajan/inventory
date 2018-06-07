@@ -1,0 +1,406 @@
+﻿@model Inventory.Models.Products
+
+@{
+    ViewData["Title"] = "Details";
+    var @PicPath = "http://10.123.99.4:8081/items/" + Model.product_code + ".bmp";
+}
+
+
+
+@ViewData["PicPath"]
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.description)</h4></div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt></dt>
+            <dd>
+                <img src=@PicPath onError="this.onerror = null; this.src = '../../images/halo-thumb.jpg';" />
+                <br /><br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.product_code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.eancode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.eancode)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description20)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description20)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description30)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description30)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description40)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description40)
+                <br /><br />
+            </dd>
+            @*<dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.status)
+                <br /><br />
+            </dd>*@
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.handling_status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.handling_status)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.account_group)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.account_group)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.account_group_desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.account_group_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_group)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_group)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_group_desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_group_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.launch_venue)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.launch_venue)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.packing_qty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.packing_qty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.creation_date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.creation_date)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.main_supplier)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.main_supplier)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.country_code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.country_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_family)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_family)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_family_desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_family_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_sector)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_sector)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.item_sector_desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.item_sector_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.commodity_code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.commodity_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.leather_usage)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.leather_usage)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.other_material_usage)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.other_material_usage)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.plastic_waste)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.plastic_waste)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.metal_waste)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.metal_waste)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.carboard_waste)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.carboard_waste)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.net_weight)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.net_weight)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.gross_weight)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.gross_weight)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.lengh)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.lengh)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.height)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.height)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.cbm)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cbm)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.manufacturer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.manufacturer)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.cartons)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cartons)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.infostatus)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.infostatus)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.coststatus)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.coststatus)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category1)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category1_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category2_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category3_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category4)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category4_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category5)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category5_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category6)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category6_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category7)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category7_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category8)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category8_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category9)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category9_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category10)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category10_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category11)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category11_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category12)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category12_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category15)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category15_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category16)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.category16_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.uk_cat1)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.uk_cat1)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.uk_cat2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.uk_cat2)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.uk_cat3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.uk_cat3)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.uk_cat4)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.uk_cat4)
+                <br /><br />
+            </dd>
+        </dl>
+    </div>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

@@ -1,0 +1,115 @@
+﻿@model Inventory.Models.Suppliers
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.supplier_no) - @Html.DisplayFor(model => model.name)</h4></div>
+    
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.supplier_no)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.supplier_no)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.name)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr1)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr1)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr2)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr3)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr4)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr4)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.postal_code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.postal_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.province_state)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.province_state)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.country)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.country)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.internal_name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.internal_name)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.vat_registration_no)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.vat_registration_no)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.cre_date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cre_date)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.customer_supplier_no)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.customer_supplier_no)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ar_main_salesman_handler)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ar_main_salesman_handler)
+                <br /><br />
+            </dd>
+        </dl>
+    </div>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

@@ -1,0 +1,143 @@
+@model IEnumerable<Inventory.Models.Warehouses>
+
+<div style="float:left">
+    <form asp-controller="WarehousesController" asp-action="Index"  method="post">
+        <p>
+            <input type="text" name="search" value=@ViewData["Search"] placeholder="Search  Warehouse / country " class="search-box" />
+            <input type="submit" value="Search" class="search-box-btn" style="margin-left:-4px;" />
+        </p>
+    </form>
+</div>
+<div style="float:left;margin-top:2px;margin-left:10px">
+    @Html.DropDownList("countryDropdownList", (IEnumerable<SelectListItem>)ViewData["countryDropdownList"], new
+           {
+               @class = "form-control",
+           })
+</div>
+
+<div style="float:right; text-align:right; font-style:italic; font-size:12px; padding-bottom:10px;">
+   Total Record(s): @ViewData["TotalRows"]
+</div>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.warehouse_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type_of_transport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addr1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addr2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addr3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addr4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.post_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr style="cursor: pointer" onclick="window.open('./warehouses/Details/' + @item.id, '_self')">
+        <td>
+            @Html.DisplayFor(modelItem => item.warehouse_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.desc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type_of_transport)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addr1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addr2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addr3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addr4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post_code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+    </tr>
+}
+</table>
+@section Scripts {
+    <style>
+        .table-fixedheader {
+            width: 100%;
+        }
+
+            .table-fixedheader > tbody {
+                display: block;
+                height: 200px;
+                overflow: auto;
+            }
+
+            .table-fixedheader > thead, table-fixedheader > tbody > tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .table-fixedheader > thead {
+                width: calc( 100% - 1em );
+            }
+    </style>
+    <script>
+        $(function () {
+            //// bind change event to select
+            //$('#PagesList').on('change', function () {
+            //    var url = $(this).val(); // get selected value
+            //    if (url) { // require a URL
+            //        window.location = url; // redirect
+            //    }
+            //    return false;
+            //});
+            $('#countryDropdownList').on('change', function () {
+                var url = $(this).val(); // get selected value
+                if (url) { // require a URL
+                    //debugger;
+                    window.location = url; // redirect
+                }
+                return false;
+            });
+        });
+
+    </script>
+}
+
+
+

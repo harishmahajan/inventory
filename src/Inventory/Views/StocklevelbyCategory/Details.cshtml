@@ -1,0 +1,77 @@
+﻿@model Inventory.Models.stock_level_np
+
+@{
+    ViewData["Title"] = "Details";
+    var @PicPath = "http://10.123.99.4:8081/items/" + Model.product_code + ".bmp";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.product_desc)</h4></div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt></dt>
+            <dd>
+                <img src=@PicPath onError="this.onerror = null; this.src = '../../images/halo-thumb.jpg';" />
+                <br /><br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.product_code)
+
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.product_desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_desc)
+                <br /><br />
+            </dd>
+            @*<dt>
+                @Html.DisplayNameFor(model => model.warehouse)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.warehouse)
+                <br /><br />
+            </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.on_hand_qty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.on_hand_qty)
+                <br /><br />
+            </dd>
+            @*<dt>
+                @Html.DisplayNameFor(model => model.incoming_qty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.incoming_qty)
+                <br /><br />
+            </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.ob_outgoing_qty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ob_outgoing_qty)
+                <br /><br />
+            </dd>
+            @*new  fob field added*@ 
+            <dt>
+                @Html.DisplayNameFor(model => model.fob)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.fob)
+                <br /><br />
+            </dd>
+         
+        </dl>
+    </div>
+</div>
+<p>
+    @*<a asp-action="Stock_level_np" asp-route-Category="@ViewData["Category"]" >Back to List</a>*@ 
+    <a href="./Stock_level_np?&search=@ViewData["Search"]&Category=@ViewData["Category"]&p=@ViewData["P"]">Back to List</a>
+</p>

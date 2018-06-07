@@ -1,0 +1,504 @@
+﻿@model Inventory.Models.inbound_shipment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.ship_no) - @Html.DisplayFor(model => model.desc)</h4></div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ship_status):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ship_status)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.ship_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ship_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.ship_agent):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ship_agent)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.supplier_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.supplier_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.desc):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.desc)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.to_warehouse):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.to_warehouse)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.handler):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.handler)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.creation_date):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.creation_date)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.user_id):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.user_id)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.pick_list_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.pick_list_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.goods_reception_prog):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.goods_reception_prog)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.allocation_required):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.allocation_required)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.pre_receipt_qty_update_required):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.pre_receipt_qty_update_required)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.await_cost_check):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.await_cost_check)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.receception_processed):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.receception_processed)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.total_no_of_lines):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.total_no_of_lines)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.qty):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.qty)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.amt_17_4):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.amt_17_4)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.tot_gross_weight):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tot_gross_weight)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.tot_net_weight):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tot_net_weight)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.total_gross_vol):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.total_gross_vol)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.total_net_vol):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.total_net_vol)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.landed_costs_required):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.landed_costs_required)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.dispatch_date):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.dispatch_date)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.transport_time):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.transport_time)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.arrival_date):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.arrival_date)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.supplier_dispatch_id):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.supplier_dispatch_id)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.consolidated_to):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.consolidated_to)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.consignee):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.consignee)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.notify_party):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.notify_party)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.vessel_name):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.vessel_name)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.place_of_receive):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.place_of_receive)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.loading_port):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.loading_port)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.discharge_port):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.discharge_port)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.destination_port):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.destination_port)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.container_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.container_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.container_size):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.container_size)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.seal_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.seal_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.lc_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.lc_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.lc_date):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.lc_date)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.contact_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.contact_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.etd):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.etd)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.eta):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.eta)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.act_ship_date):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.act_ship_date)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.order_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.order_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.order_line_number):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.order_line_number)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.from_warehouse):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.from_warehouse)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.ship_line_no):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ship_line_no)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.product_code):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_code)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.qty_stock_unit):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.qty_stock_unit)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.disc_sales_price_in_sys_currency):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.disc_sales_price_in_sys_currency)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.gross_weight):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.gross_weight)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.net_weight):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.net_weight)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.gross_volume):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.gross_volume)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.net_volume):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.net_volume)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.qty_purchase_unit):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.qty_purchase_unit)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.unit):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.unit)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.ship_cost_amt):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ship_cost_amt)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.qty_received_ytd):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.qty_received_ytd)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.transport_note_no_from_supplier):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.transport_note_no_from_supplier)
+                <br /><br />
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.remark):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.remark)
+                <br /><br />
+            </dd>
+        </dl>
+    </div>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

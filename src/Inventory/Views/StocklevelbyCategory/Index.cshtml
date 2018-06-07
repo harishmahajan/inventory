@@ -1,0 +1,541 @@
+﻿@model IEnumerable<Inventory.Models.stock_level_byCategory>
+
+@{
+    ViewData["Title"] = "Index";
+    int p = (int)ViewData["p"];
+    string chartJsonData = @ViewData["chartJson"].ToString();
+    string chartTooltipJsonData = @ViewData["ChartTooltipJson"].ToString();
+    int TopNavPageListSize = 3;
+    string PagingListNavAddress = "/StocklevelbyCategory/Index";
+    string PagingListBoxNavAddress = "/StocklevelbyCategory/Stock_level_np"; /*new variable added by harish*/
+
+}
+
+<!-- Top Nav -->
+<table width="100%">
+    <tr>
+        <td width="350px">
+            @*Submission form*@
+            <form asp-controller="StocklevelbyCategory" asp-action="Index" method="post">
+                <p>
+                    <input type="text" name="search" value=@ViewData["Search"] placeholder="Search Category Desc." class="search-box" />
+                    <input type="submit" value="Search" class="search-box-btn" style="margin-left:-4px;" />
+                </p>
+            </form>
+        </td>
+        <td width="60px">
+            <p>
+                <strong>
+                    Sort by:
+                </strong>
+            </p>
+        </td>
+        <td width="150px">
+            <p>
+                @Html.DropDownList("lstSortBy", (IEnumerable<SelectListItem>)ViewData["lstSortBy"], new { @class = "form-control", })
+                @*<select name="lstSortBy" id="lstSortBy" class="form-control" style="width:150px;height:41px">
+                    <option selected="selected" value="Category">Category</option>
+                    <option value="Qty">Qty</option>
+                    <option value="FOB">FOB</option>
+                </select>*@
+            </p>
+        </td>
+        <td width="130px">
+            <p>
+                @Html.DropDownList("lstSortOrder", (IEnumerable<SelectListItem>)ViewData["lstSortOrder"], new { @class = "form-control", })
+                @*<select name="lstSortOrder" id="lstSortOrder" class="form-control" style="width:120px;height:41px">
+        <option selected="selected" value="Ascending">Ascending</option>
+        <option value="Descentidn">Descending</option>
+    </select>*@
+            </p>
+        </td>
+        <td>
+            <p>
+                <input type="button" value="Sort" id="btnSort" class="btn btn-default" style="margin-left:10px" onclick="sortData()" />
+            </p>
+        </td>
+        <td>
+            @*This list out the total records*@
+            <div style="width:100%; text-align:right; font-style:italic; font-size:12px; padding-bottom:10px; color:lightslategrey">
+                Total Record(s): @ViewData["TotalRows"]
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <td style="text-align:right" colspan="6">
+            @if ((int)ViewData["TotalPages"] > 1)
+            //if total page is bigger than 1
+            {
+            <div style="text-align:right; width:100%">
+                @* Beginning of paging *@
+                @*<nav>
+                        <ul class="pagination pagination-sm">
+                            @{
+                                    //This part display the left arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                                    if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                    {
+                                <li><a href="@PagingListNavAddress?p=1&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                                <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                    }
+                                    else
+                                    {   // else it will not include search
+                                <li><a href="@PagingListNavAddress?p=1" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                                <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                    }
+
+                                    // Beginning of paging numbers
+                                    // The following section has broken into three pieces. First, it checks to see if the current page is less than the limited top navigation page list size.
+                                    // Second, it checks to see if the current page plus the limited top navigation page list size is greater than the total page, if so it will print only
+                                    //         up to the last page
+                                    // Third, it print out the regular condition
+                                    if (p < TopNavPageListSize)     // if page number is less than the limited top navigation page list size
+                                    {
+                                        for (int a = 1; a < 6 && a <= (int)ViewData["TotalPages"]; a++) // a always start at 1 and for a < total pages
+                                        {
+                                            if (@a == p)
+                                            {   // if a is the current page then no link is printed
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                            }
+                                            else
+                                            {   // For page has search criteria
+                                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                                }
+                                                else // else
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (p + TopNavPageListSize > (int)@ViewData["TotalPages"])
+                                    {
+                                        for (int a = (int)ViewData["TotalPages"] - 4; a <= (int)ViewData["TotalPages"]; a++)
+                                        {
+                                            if (@a == p)
+                                            {
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                            }
+                                            else
+                                            {
+                                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                                }
+                                                else
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int a = p - 2; a < p + 3; a++)
+                                        {
+                                            if (@a == p)
+                                            {
+                                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                            }
+                                            else
+                                            {
+                                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                                }
+                                                else
+                                                {
+                                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    //This part display the right arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                                    if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                    {
+                                <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;</span></a></li>
+                                <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                    }
+                                    else
+                                    {   // else it will not include search
+                                <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]"><span aria-hidden="true">&raquo;</span></a></li>
+                                <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                    }
+                            }
+
+                            @Html.DropDownList("PagesList", (IEnumerable<SelectListItem>)ViewData["PagesList"], new { @class = "paging-dropdown" })
+
+                        </ul>
+                    </nav>*@
+                <nav>
+                    <ul class="pagination pagination-sm">
+                        @{
+//This part display the left arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                            @if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                            <li><a href="@PagingListNavAddress?p=1&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                            <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                }
+                                else
+                                {   // else it will not include search
+                            <li><a href="@PagingListNavAddress?p=1" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                            <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                }
+
+                                // Beginning of paging numbers
+                                // The following section has broken into three pieces. First, it checks to see if the current page is less than the limited top navigation page list size(7).
+                                // Second, it checks to see if the current page plus the limited top navigation page list size is greater than the total page, if so it will print only
+                                //         up to the last page
+                                // Third, it print out the regular condition
+                                if (p < 7)
+                                {
+                                    for (int a = 1; a < 12 && a <= (int)ViewData["TotalPages"]; a++)    // if page number is less than the limited top navigation page list size
+                                    {
+                                        if (@a == p)
+                                        {   // if a is the current page then no link is printed
+                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {   // For page has search criteria
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else  // else
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (p + 5 > (int)@ViewData["TotalPages"])
+                                {
+                                    for (int a = (int)ViewData["TotalPages"] - 10; a <= (int)ViewData["TotalPages"]; a++)
+                                    {
+                                        if (@a == p)
+                                        {
+                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int a = p - 5; a < p + 6; a++)
+                                    {
+                                        if (@a == p)
+                                        {
+                            <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                            }
+                                            else
+                                            {
+                            <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //This part display the right arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                            <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;</span></a></li>
+                            <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                }
+                                else
+                                {   // else it will not include search
+                            <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]"><span aria-hidden="true">&raquo;</span></a></li>
+                            <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                                }
+                        }
+                        @Html.DropDownList("PagesList", (IEnumerable<SelectListItem>)ViewData["PagesList"], new { @class = "paging-dropdown" })
+                    </ul>
+                </nav>
+            </div>
+                                }
+        </td>
+    </tr>
+</table>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class='square-box-chart' style="cursor: pointer;">
+            @*<a href="@PagingListBoxNavAddress?Category=@item.Category_Name&P=1"style="text-decoration:none;">*@
+            <a href="#" style="text-decoration:none;" onclick="squareboxclick('@PagingListBoxNavAddress','@item.Category_Name');">
+                <div class='chart-title'>
+                    @Html.DisplayFor(modelItem => item.Category_Name)
+                </div>
+                <div id="_@item.id" class="high-chart"></div>
+                <div class="chart-footer">
+                    Qty: @Html.DisplayFor(modelItem => item.Stock_Count)
+                    <br />
+                    Total FOB:  @Html.DisplayFor(modelItem => item.fob)K
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+@if ((int)ViewData["TotalPages"] > 1)   //if total page is bigger than 1
+{
+    <div style="text-align:center; width:100%">
+        <nav>
+            <ul class="pagination">
+                @{
+//This part display the left arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                @if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                    {
+                <li><a href="@PagingListNavAddress?p=1&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]&search=@ViewData["Search"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    }
+                    else
+                    {   // else it will not include search
+                <li><a href="@PagingListNavAddress?p=1" aria-label="Previous"><span aria-hidden="true">&laquo;&laquo;</span></a></li>
+                <li><a href="@PagingListNavAddress?p=@ViewData["PreviousPage"]" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    }
+
+                    // Beginning of paging numbers
+                    // The following section has broken into three pieces. First, it checks to see if the current page is less than the limited top navigation page list size(7).
+                    // Second, it checks to see if the current page plus the limited top navigation page list size is greater than the total page, if so it will print only
+                    //         up to the last page
+                    // Third, it print out the regular condition
+                    if (p < 7)
+                    {
+                        for (int a = 1; a < 12 && a <= (int)ViewData["TotalPages"]; a++)    // if page number is less than the limited top navigation page list size
+                        {
+                            if (@a == p)
+                            {   // if a is the current page then no link is printed
+                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {   // For page has search criteria
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else  // else
+                                {
+                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+                    else if (p + 5 > (int)@ViewData["TotalPages"])
+                    {
+                        for (int a = (int)ViewData["TotalPages"] - 10; a <= (int)ViewData["TotalPages"]; a++)
+                        {
+                            if (@a == p)
+                            {
+                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else
+                                {
+                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int a = p - 5; a < p + 6; a++)
+                        {
+                            if (@a == p)
+                            {
+                <li class="active"><a>@a <span class="sr-only">(current)</span></a></li>
+                            }
+                            else
+                            {
+                                if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                                {
+                <li><a href="@PagingListNavAddress?p=@a&search=@ViewData["Search"]"> @a </a></li>
+                                }
+                                else
+                                {
+                <li><a href="@PagingListNavAddress?p=@a"> @a </a></li>
+                                }
+                            }
+                        }
+                    }
+
+                    //This part display the right arrow based on searching criteria. If there is nothing to search then url will not include searching criteria
+                    if (!String.IsNullOrEmpty((string)ViewData["Search"]))
+                    {
+                <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;</span></a></li>
+                <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]&search=@ViewData["Search"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                    }
+                    else
+                    {   // else it will not include search
+                <li><a href="@PagingListNavAddress?p=@ViewData["NextPage"]"><span aria-hidden="true">&raquo;</span></a></li>
+                <li><a href="@PagingListNavAddress?p=@ViewData["TotalPages"]"><span aria-hidden="true">&raquo;&raquo;</span></a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+                    }
+
+@section Scripts {
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script>
+        var chartjsondata = JSON.stringify(@Html.Raw(chartJsonData));
+        chartjsondata = JSON.parse(chartjsondata);
+
+        var charttooltipjsondata = JSON.stringify(@Html.Raw(chartTooltipJsonData));
+        charttooltipjsondata = JSON.parse(charttooltipjsondata);
+        //console.log(charttooltipjsondata);
+
+        $(function () {
+
+            // bind change event to select
+            $('#PagesList').on('change', function () {
+                var url = $(this).val(); // get selected value
+                //debugger;
+                if (url) { // require a URL
+                    window.location = url; // redirect
+                }
+                return false;
+            });
+            $.each(chartjsondata, function (key, value) {
+                //console.log(value);
+                $.get("/stocklevelbycategory/getProducsStocklevelnptByCategory", { Category: value.Category_Name }, function (data) {
+                    //console.log(data);
+                    //debugger;
+                    DrawChart(data, "id", "size", "#_" + value.id,value.Category_Name);
+                });
+            });
+        });
+        function chartToolTipDisp(objarr)
+        {
+            var disp = "";
+            for (var i = 0; i < objarr.length; i++) {
+                disp += "<b>" + objarr[i].countryName+":"+objarr[i].value+"</b><br/>"
+            }
+            return disp;
+        }
+        function getToolTipObjects(category, continentName) {
+            var objarr = [];
+            //debugger;
+            for (var i = 0; i < charttooltipjsondata.length; i++) {
+                // look for the entry with a matching `code` value
+                if (charttooltipjsondata[i].category10_desc === category && charttooltipjsondata[i].continentName === continentName) {
+                    objarr.push(charttooltipjsondata[i]);
+                }
+            }
+            return objarr;
+        }
+        function sortData() {
+            //debugger;
+            var sortby = $('#lstSortBy').val();
+            var sortorder = $('#lstSortOrder').val();
+            var url = "/stocklevelbycategory?search=@ViewData["Search"]&sortBy=" + sortby + "&sortOrder=" + sortorder;
+            //console.log(url);
+            window.location.href= url;
+        }
+
+        function DrawChart(data, id, size, container, Category_Name) {
+            $(container).highcharts({
+
+                chart: {
+                    renderTo: 'containter',
+                    backgroundColor: null
+                },
+                tooltip: {
+                    formatter: function () {
+                        //return this.point.continentName + '----' + this.point.value;
+                        var obj = getToolTipObjects(Category_Name, this.point.continentName);
+                        //console.log(obj);
+                        return chartToolTipDisp(obj);
+                    }
+                },
+                series: [{
+                    borderColor: 'white',
+                    states: {
+                        hover: {
+                            borderColor: 'black'
+                        }
+                    },
+                    type: 'treemap',
+                    backgroundColor: '#FCFFC5',
+                    layoutAlgorithm: 'squarified',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    dataLabels: {
+
+                        formatter: function () {
+                            var total = 0;
+                            for (var i = 0; i < this.series.data.length; i++) {
+                                if (this.series.data[i].node.children.length == 0)
+                                    total += this.series.data[i].node.val;
+                            }
+                            var value;
+                            if (this.point.node.children.length == 0) {
+                                value = this.point.options.value;
+                            }
+                            else {
+                                value = this.point.node.childrenTotal;
+                            }
+                            return '<div">' + this.point.continentName + '</div> ' +
+                                '<br/>' +
+                                '<div">' + Math.round((value / total) * 100) + '%</div>';
+                            //+'<b>' + this.point.value + '</b> ' +
+                            //'<br/>';
+                        },
+                        color: 'black',
+                    },
+                    //events: {
+                    //    mouseOver: function () {
+                    //        console.log(this);
+
+                    //    }
+                    //},
+
+                    data: data,
+                }],
+
+                title: {
+                    text: ''
+                },
+                credits: {
+                    enabled: false
+                },
+
+            });
+        }
+        function squareboxclick(PagingListBoxNavAddress,Category_Name) {
+            //debugger;
+            var url = PagingListBoxNavAddress + "?Category=" + encodeURIComponent(Category_Name) + "&P=" + 1;
+            //console.log(url);
+            window.location = url;
+        }
+
+    </script>
+}

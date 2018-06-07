@@ -1,0 +1,530 @@
+﻿@model Inventory.Models.stock_level
+
+@{
+    ViewData["Title"] = "Details";
+    var @PicPath = "http://10.123.99.4:8081/items/" + Model.product_code + ".bmp";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.product_desc)</h4></div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt></dt>
+            <dd>
+                <img src=@PicPath onError="this.onerror = null; this.src = '../../images/halo-thumb.jpg';" />
+                <br /><br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.product_code)               
+                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.product_desc)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.product_desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a00_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a00_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a00_inq)           
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a00_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a00_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a00_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a00_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a00_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a10_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a10_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a10_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a10_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a10_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a10_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a10_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a10_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a11_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a11_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a11_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a11_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a11_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a11_ouq)
+                <br /><br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.a50_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a50_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a50_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a50_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a50_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a50_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a50_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a50_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a99_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a99_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a99_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a99_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.a99_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.a99_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g10_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g10_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g10_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g10_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g10_ouq)              
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g10_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g10_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g10_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g50_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g50_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g50_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g50_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g50_ouq)              
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g50_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g50_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g50_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g90_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g90_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g90_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g90_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g90_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g90_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g90_obqty)              
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g90_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g99_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g99_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g99_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g99_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g99_ouq)              
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g99_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.g99_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.g99_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h00_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h00_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h00_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h00_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h00_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h00_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h00_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h00_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h01_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h01_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h01_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h01_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h01_ouq)            
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h01_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h01_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h01_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h10_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h10_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h10_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h10_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h10_ouq)              
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h10_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.h10_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.h10_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.m10_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.m10_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.m10_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.m10_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.m10_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.m10_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.m10_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.m10_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t01_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t01_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t01_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t01_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t01_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t01_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t01_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t01_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t02_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t02_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t02_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t02_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t02_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t02_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.t02_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.t02_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u10_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u10_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u10_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u10_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u10_ouq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u10_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u10_obqty)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u10_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u50_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u50_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u50_inq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u50_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u50_ohq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u50_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u50_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u50_obqty)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u99_ohq)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u99_ohq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u99_inq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u99_inq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u99_ouq)               
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u99_ouq)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.u99_obqty)                
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.u99_obqty)
+                <br /><br />
+            </dd>
+        </dl>
+    </div>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>

@@ -1,0 +1,85 @@
+@model Inventory.Models.Warehouses
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Html.DisplayFor(model => model.warehouse_id) - @Html.DisplayFor(model => model.name)</h4></div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.warehouse_id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.warehouse_id)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.name)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.desc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.desc)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.type_of_transport)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.type_of_transport)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr1)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr1)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr2)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr3)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.addr4)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.addr4)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.post_code)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.post_code)
+                <br /><br />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.country)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.country)
+            </dd>
+        </dl>
+    </div>
+</div>
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
